@@ -1,0 +1,31 @@
+application: flickrforbusypeople
+version: 1
+runtime: python
+api_version: 1
+
+skip_files:
+- ^(.*/)?app\.yaml
+- ^(.*/)?app\.yml
+- ^(.*/)?index\.yaml
+- ^(.*/)?index\.yml
+- ^(.*/)?#.*#
+- ^(.*/)?.*~
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?.*/RCS/.*
+- ^(.*/)?.*/CVS/.*
+- ^(.*/)?\..*
+- ^(.*/)?.*\.bak$
+
+handlers:
+
+- url: /css
+  static_dir: css
+
+- url: /javascript
+  static_dir: javascript
+
+- url: /images
+  static_dir: images
+
+- url: .*
+  script: main.py

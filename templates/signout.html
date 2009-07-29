@@ -1,0 +1,12 @@
+{% include "inc_head.html" %}
+
+<h2>Are you sure you want to sign out of flickr for busy people?</h2>
+
+                <form method="POST" action="/signout" style="display:inline;margin-left:15px;">
+                  <input type="hidden" name="crumb" value="{{ logout_crumb|escape }}" />
+                  <input type="submit" value="yes please, sign me out" style="border:1px dotted white;background-color:darkslategray;color:white;font-size:14px;padding:5px;" />
+                </form>
+
+<p>Or just go back to your <a href="/">recent uploads page.</p>
+
+{% include "inc_foot.html" %}

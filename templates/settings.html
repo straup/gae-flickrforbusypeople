@@ -1,0 +1,35 @@
+{% include "inc_head.html" %}
+
+{% if error %}
+
+<p>
+{% ifequal error 'invalid_crumb' %}
+Hrm. Your session seems to have expired.
+{% endifequal %}
+
+{% ifequal error 'invalid_filter' %}
+Hey! That's an invalid filter.
+{% endifequal %}
+</p>
+
+<p><a href="/settings">Would you like to try again?</a></p>
+{% else %}
+
+<h2>Update which contacts you want to get busy for</h2>
+
+<p>This setting will filter which contacts with recent uploads you will see updates for.</p>
+
+<form method="POST" action="/settings" style="font-size:large;">
+	<input type="hidden" name="crumb" value="{{ settings_crumb|escape }}" />
+        <input type="radio" name="filter" value="all" {% ifequal user.settings.search_in_contacts_filter 'all' %}checked"{% endifequal %} /> All your contacts
+        <br />
+        <input type="radio" name="filter" value="ff"  {% ifequal user.settings.search_in_contacts_filter 'ff' %}checked"{% endifequal %} /> Only friends and family
+        <br /><br />
+        <input type="submit" value="UPDATE" />
+</form>
+
+{% endif %}
+
+<p>Or just go back to your <a href="/">recent uploads page.</p>
+
+{% include "inc_foot.html" %}

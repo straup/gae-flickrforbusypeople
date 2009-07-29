@@ -1,0 +1,27 @@
+{% include "inc_head.html" %}
+
+<h2>This is Flickr for busy people.</h2>
+
+{% if browser.mobile %}
+<p>It is a simple web application that displays a list of your Flickr contacts who have
+  uploaded photos in the last 30 minutes, two hours and four hours.</p>
+
+{% else %}
+
+<p>It is a simple web application that displays a list of your Flickr contacts who have
+  uploaded photos in the last 30 minutes, two hours and four hours.</p>
+
+<p>If you click on a buddyicon, the application will display thumbnails of the
+  photos that user has uploaded recently. Like this:</p>
+
+<div style="text-align:center;"><img src="images/example.jpg" height="272" width="611" alt="flickr for busy people screenshot" /></div>
+
+{% endif %}
+
+<p style=""><strong><a href="/signin">Sign in to get started.</a></strong></p>
+
+<p style="font-size:small;font-style:italic;">The first time you sign in you
+  will be taken to Flickr and asked authorize the <q>flickrforbusypeople</q>
+  application. You should only need to do this once.</p>
+
+{% include "inc_foot.html" %}

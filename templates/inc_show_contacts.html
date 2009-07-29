@@ -1,0 +1,77 @@
+{% if browser.mobile %}
+
+{% ifequal slice.duration '30m' %}
+<h3>30 minutes</h3>
+{% endifequal %}
+
+{% ifequal slice.duration '2h' %}
+<h3>2 hours</h3>
+{% endifequal %}
+
+{% ifequal slice.duration '4h' %}
+<h3>4 hours</h3>
+{% endifequal %}
+
+{% if slice.error %}
+<div class="error">{{ slice.error|escape }}</div>
+{% endif %}
+
+{% for c in slice.contacts %}
+<div id="photos_{{ c.nsid_hex }}">
+<div style="float:left; margin-bottom:10px;margin-right:10px;">
+	<a href="#" onclick="show_photos('{{ c.nsid|escape }}', '{{ slice.offset}}');return false;">
+          <img id="buddy_{{ c.nsid_hex}}" src="{{ c.buddyicon }}" height="48" width="48" style="border:3px solid #{{ c.nsid_short_hex}};margin-bottom:5px;" /></a>
+        <div style="margin-top:5px;text-align:center;font-size:10px;color:auto;">
+          <a href="http://m.flickr.com/photos/{{ c.nsid|escape }}" target="flickr" style="text-decoration:none;color:#666;">
+          {% ifequal c.count '1' %}
+          <strong style="font-size:12px;">1</strong> photo
+          {% else %}
+          <strong style="font-size:12px;">{{ c.count|escape }}</strong> photos
+          {% endifequal %}
+          </a>
+        </div>
+</div>
+</div>
+{% endfor %}
+
+<br clear="all" />
+
+{% else %}
+
+{% ifequal slice.duration '30m' %}
+<h3>Contacts who have uploaded photos in the last <span style="font-size:2.0em;color:darkslategray;">&nbsp;30 minutes</span></h3>
+{% endifequal %}
+
+{% ifequal slice.duration '2h' %}
+<h3>Other contacts who have uploaded photos in the last <span style="font-size:2.0em;color:darkslategray;">&nbsp;2 hours</span></h3>
+{% endifequal %}
+
+{% ifequal slice.duration '4h' %}
+<h3>Other contacts who have uploaded photos in the last <span style="font-size:2.0em;color:darkslategray;">&nbsp;4 hours</span></h3>
+{% endifequal %}
+
+{% if slice.error %}
+<div class="error">{{ slice.error|escape }}</div>
+{% endif %}
+
+{% for c in slice.contacts %}
+<div id="photos_{{ c.nsid_hex }}">
+<div style="float:left; margin-bottom:10px;margin-right:10px;">
+	<a href="#" onclick="show_photos('{{ c.nsid|escape }}', '{{ slice.offset}}');return false;">
+          <img id="buddy_{{ c.nsid_hex}}" src="{{ c.buddyicon }}" height="48" width="48" style="border:3px solid #{{ c.nsid_short_hex}};margin-bottom:5px;" />
+        </a>
+        <div style="margin-top:5px;text-align:center;font-size:10px;color:auto;">
+          <a href="http://www.flickr.com/photos/{{ c.nsid|escape }}" target="fl_{{ c.nsid_hex|escape }}" style="text-decoration:none;color:#666;">
+          {% ifequal c.count '1' %}
+          <strong style="font-size:12px;">1</strong> photo
+          {% else %}
+          <strong style="font-size:12px;">{{ c.count|escape }}</strong> photos
+          {% endifequal %}
+          </a>
+        </div>
+</div>
+</div>
+{% endfor %}
+
+<br clear="all" />
+{% endif %}

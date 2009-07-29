@@ -1,0 +1,15 @@
+<img src="http://www.flickr.com/images/buddyicon.jpg" height="18" width="18" style="border:2px solid #a3886d;float:left;margin-right:12px;margin-top:10px;" />
+
+{% ifequal slice.duration '30m' %}
+<h3 class="nophotos">None of your contacts have uploaded any photos in the last <span style="font-size:1.5em;color:#ccc">&nbsp;30 minutes</span></h3>
+{% endifequal %}
+
+{% ifequal slice.duration '2h' %}
+<h3 class="nophotos">No other contacts have uploaded photos in the last <span style="font-size:1.5em;color:#ccc;">&nbsp;2 hours</span></h3>
+{% endifequal %}
+
+{% ifequal slice.duration '4h' %}
+<h3 class="nophotos">No other contacts have uploaded photos in the last <span style="font-size:1.5em;color:#ccc;">&nbsp;4 hours</span></h3>
+{% endifequal %}
+ 
+<br clear="all" />

@@ -1,0 +1,41 @@
+<html>
+	<head>
+            <title>flickr for busy people{% if page_title %}{{ page_title|escape }}{% endif %}</title>
+            <link rel="stylesheet" href="/css/main.css" type="text/css" />
+
+{% if user.username %}
+            <script type="text/javascript" src="/javascript/jquery.js"></script>
+            <script type="text/javascript" src="/javascript/md5.js"></script>
+            <script type="text/javascript" src="/javascript/flickrapp-api.js"></script>
+	    <meta http-equiv="refresh" content="1800" />
+{% endif %}
+
+{% if browser.iphone %}
+            <meta name="viewport" content="width=400" />
+{% endif %}
+        </head>
+        <body>
+
+            <div id="whoami{% if browser.mobile %}_mobile{% endif %}">
+{% if browser.mobile %}
+<strong>ffbp</strong>{% if user.username %} / {{ user.username|escape }} / <a href="/signout">signout</a>{% endif %}
+{% else %}
+            {% if user.username %}
+                You are logged in with your <a href="http://www.flickr.com/photos/{% ifequal user.path_alias "" %}{{ user.nsid|escape }}{% else %}{{ user.path_alias|escape }}{% endifequal %}/" class="fl_username">{{ user.username|escape }}</a> Flickr account
+
+                <form method="POST" action="/signout" style="display:inline;margin-left:15px;">
+                  <input type="hidden" name="crumb" value="{{ logout_crumb|escape }}" />
+                  <input type="submit" value="sign out" style="border:1px dotted white;background-color:#ff0066;color:white;font-size:14px;padding:5px;" />
+                </form>
+
+            {% else %}
+                <form method="GET" action="/signin" style="display:inline;">
+                  <input type="hidden" name="crumb" value="{{ login_crumb|escape }}" />
+                  <input type="submit" value="sign in" style="border:1px dotted yellow;background-color:#ff0066;color:white;font-size:14px;padding:5px;" />
+                </form>
+            {% endif %}
+{% endif %}
+            </div>
+            <br clear="all" />
+
+            <div id="main">
