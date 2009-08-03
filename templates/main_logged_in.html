@@ -1,132 +1,19 @@
 {% include "inc_head.html" %}
 
-<script>
+<script type="text/javascript" src="/javascript/ffbp.js"></script>
 
-  function show_photos(nsid, offset, duration){
+<script type="text/javascript">
 
-	$("#ffbp_status").html();
-  	$("#ffbp_status").hide();
+  var ffbp_args = {
+  	'host' : '{{ host_url }}',
+  	'crumb' : '{{ search_crumb }}',
+  };
 
-	var hex = hex_md5(nsid);
-	var short_hex = hex.substring(0, 6);
-
-        var uid = "thumbs_" + hex;
-
-  	var status_id = "status_" + duration;
-
-  	var container = "#slice_thumbs_" + duration;
-
-  	var buddy_icon = $("#buddy_" + hex)[0].src;
-
-  	var kids = $(container).children();
-
-	if (kids.length){
-		for (var i=0; i < kids.length; i++){
-  			var child = kids[i];
-  			var id = child.getAttribute("id");
-  			var el = $("#" + id);
-
-                        // console.log('uid: ' + uid + ' id: ' + id + ' css: ' + el.css('display'));
- 
-			if ((id == uid) && (el.css('display') == 'none')){
-				el.show();
-
-				$("#count_" + uid).css('border', '2px solid #' + short_hex);
-                                continue;
-			}
-
-			$("#count_" + id).css('border', 'none');
-			el.hide();
-		}
-	}
-
-	if ($("#" + uid).length){
-		return;                                  
-	}
-                                  
-  	var api_args = {
-		'host' : '{{ host_url }}',
-  	};
-
-  	var search_args = {
-		'user_id' : nsid,
-  		'min_upload_date' : offset,
-  		'format' : 'json',
-  		'crumb' : '{{ search_crumb|escape }}',
-  	};
-
-  	var api = new info.aaronland.flickrapp.API(api_args)
-
-  	api.api_call('search', search_args, function (rsp){
-
-		$("#" + status_id).html();
-  		$("#" + status_id).hide();
-
-                $("#buddy_" + hex)[0].src = buddy_icon;
-
-  		var short_hex = hex.substring(0, 6);
-  		var html = '';
-
-  		if (rsp.photos.photo.length == 0){
-		        $("#ffbp_status").html("Foiled again! The Flickr API returns no photos for that user.");
-  		        $("#ffbp_status").show();
-                        return;
-  		}
-
-		var html = '<div id="' + uid + '">';
-		//html += '<div style="margin-bottom:4px;font-size:small;">';
-		//html += 'From <a href="http://www.flickr.com/photos/' + nsid + '" target="_flickr">' + rsp['photos']['photo'][0]['ownername'] + '</a>:';
-		//html += '</div>';
-                                  
-  		for (i in rsp.photos.photo){
-  			var ph = rsp.photos.photo[i];
-
-                        var sz = 75;
-
-  			var link = 'http://www.flickr.com/photos/' + ph['owner'] + '/' + ph['id'];
-  			var src = 'http://farm' + ph['farm'] + '.static.flickr.com/' + ph['server'] + '/' + ph['id'] + '_' + ph['secret'] + '_s.jpg';
-
-  			var img = '<a href="' + link + '" target="_fl' + ph['id'] + '">';
-                        img += '<img src="' + src + '" height="' + sz + '" width="' + sz + '" style="border:3px solid #' + short_hex + ';" />';
-                        img += '</a>';
-
-  			html += '<div id="thumb_' + ph['id'] + '" class="thumb_' + hex + '" style="margin-right:10px;margin-bottom:20px; float:left">';
-                        html += img;
-                        html += '<div style="margin-top:12px;font-style:italic;text-align:center;font-size:10px;color:auto;">' + ph['title'].substring(0, 6) + '...</div>';
-                        html += '</div>';
-  		}
-
-		html += '</div>';
-		$(container).append(html);
-
-		$("#count_" + uid).css('border', '2px solid #' + short_hex);
-
-  	}, function (rsp) {
-
-                $("#buddy_" + hex)[0].src = buddy_icon;
-
-		$("#" + status_id).html('Unable to retrieve any photos for that user. The attempt failed with the following message:<br /><br />' + rsp.error.message);
-		$("#" + status_id).show();
-		return;
-  	});
-
-        $("#buddy_" + hex)[0].src = "/images/loading.gif";
-                              
-	$("#" + status_id).html("Retrieving photos...");
-  	$("#" + status_id).show();
-  }
-
-
+  window.ffbp = new info.aaronland.ffbp.Photos(ffbp_args);
+	
 </script>
 
-{% if browser.mobile %}
-{% else %}
-<div style="height:20px;border:none;">
-<div id="ffbp_status" style="z-index:100;"></div>
-</div>
-{% endif %}
-
-<br />
+<br /><br />
 
 {% for slice in slices %}
 {% include "inc_main_contacts.html" %}

@@ -1,32 +1,33 @@
-<div class="slice" style="min-height:90px;">
-	<div class="slice_label" style="float:left;width:225px;text-align:right;margin-right:50px;">
-          <div class="slice_inthelast" style="color:#ccc;font-weight:700;margin-bottom:5px;">in the last</div>
-          <div class="slice_amountoftime" style="color:#ff0084;font-weight:700;font-size:2em;">
+<div class="slice">
+	<div class="slice_label">
+          <span class="slice_inthelast">in the last</span>
+          <span class="slice_amountoftime">
+	    &#160;
             {% ifequal slice.duration '30m' %}30 minutes{% endifequal %}
             {% ifequal slice.duration '2h' %}2 hours{% endifequal %}
             {% ifequal slice.duration '4h' %}4 hours{% endifequal %}
-	  </div>
+	  </span>
 	</div>
 
-<div id="slice_contacts" style="">
+<div id="slice_contacts">
 
 {% ifequal slice.count 0 %}
-	<div class="slice_noone" style="font-weight:500;font-size:1.5em;color:#d0d0d0;padding-top:10px;">Nothing new...</div>
+	<div class="slice_noone">Nothing new...</div>
 {% else %}
 {% for c in slice.contacts %}
 	
-	<div id="photos_{{ c.nsid_hex }}" style="float:left; margin-right:10px;margin-bottom:10px;">
+	<div id="photos_{{ c.nsid_hex }}" class="photos_hex">
 
-		<a href="#" onclick="show_photos('{{ c.nsid|escape }}', '{{ slice.offset}}', '{{ slice.duration|escape }}');return false;">
-          	<img id="buddy_{{ c.nsid_hex}}" src="{{ c.buddyicon }}" height="48" width="48" style="border:3px solid #{{ c.nsid_short_hex}};margin-bottom:5px;" />
+		<a href="#" onclick="window.ffbp.show_photos('{{ c.nsid|escape }}', '{{ slice.offset}}', '{{ slice.duration|escape }}');return false;">
+          	<img id="buddy_{{ c.nsid_hex}}" src="{{ c.buddyicon }}" height="48" width="48" class="buddy_hex" style="border:3px solid #{{ c.nsid_short_hex}};" />
         	</a>
 
-                <div id="count_thumbs_{{ c.nsid_hex }}" style="text-align:center;font-size:10px;color:auto;">
-                  <a href="http://www.flickr.com/photos/{{ c.nsid|escape }}" target="fl_{{ c.nsid_hex|escape }}" style="text-decoration:none;color:#666;">
+                <div id="count_thumbs_{{ c.nsid_hex }}" class="count_thumbs_hex">
+                  <a href="http://www.flickr.com/photos/{{ c.nsid|escape }}" target="fl_{{ c.nsid_hex|escape }}">
                     {% ifequal c.count '1' %}
-          	    <strong style="font-size:12px;">1</strong> photo
+          	    <strong>1</strong> photo
                     {% else %}
-                    <strong style="font-size:12px;">{{ c.count|escape }}</strong> photos
+                    <strong>{{ c.count|escape }}</strong> photos
                     {% endifequal %}
                   </a>
                 </div>
@@ -37,10 +38,8 @@
 
         <br clear="all" />
 
-	<div style="margin-left:275px;">
-        <div id="status_{{ slice.duration|escape }}" style="margin-top:5px;font-style:italic;"></div>
-        <div id="slice_thumbs_{{ slice.duration|escape }}" style="margin-top:10px;"></div>
-        </div>
+        <div class="status" id="status_{{ slice.duration|escape }}"></div>
+        <div class="slice_thumbs" id="slice_thumbs_{{ slice.duration|escape }}"></div>
 
         <br clear="all" />
 {% endifequal %}

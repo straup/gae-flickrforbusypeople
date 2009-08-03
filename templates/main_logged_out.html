@@ -1,5 +1,7 @@
 {% include "inc_head.html" %}
 
+<div class="margin20">
+
 <h2>This is Flickr for busy people.</h2>
 
 {% if browser.mobile %}
@@ -14,14 +16,18 @@
 <p>If you click on a buddyicon, the application will display thumbnails of the
   photos that user has uploaded recently. Like this:</p>
 
-<div style="text-align:center;"><img src="images/example.jpg" height="272" width="611" alt="flickr for busy people screenshot" /></div>
+<div id="example_image">
+<img src="images/example2.jpg" alt="flickr for busy people screenshot"/>
+</div>
 
 {% endif %}
 
-<p style=""><strong><a href="/signin">Sign in to get started.</a></strong></p>
+<p id="getstarted"><strong><a href="/signin">&rarr; Sign in to get started.</a></strong></p>
 
 <p style="font-size:small;font-style:italic;">The first time you sign in you
   will be taken to Flickr and asked authorize the <q>flickrforbusypeople</q>
   application. You should only need to do this once.</p>
+
+</div>
 
 {% include "inc_foot.html" %}

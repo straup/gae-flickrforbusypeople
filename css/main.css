@@ -21,31 +21,10 @@ h3 {
      margin-bottom:15px;
 }
 
-.nophotos { 
-               font-size:.8em;
-               color:pink;
-            margin-bottom:5px;
-}
-
 /* ids */
 
-#chooser { 
-       margin-bottom:15px;
-       position:relative;
-}
-
-#ffbp_status { 
-              display:none;
-              color:darkslategray;
-              /*border:1px dotted #6699ff;
-              background-image: url('/images/dot.gif');
-              padding:7px;
-              padding-left:none;
-		*/
-              font-weight:700;
-               width:100%;
-               text-align:right;
-               float:right;
+#example_image { 
+                 margin-left:6%;
 }
 
 #foot { 
@@ -55,48 +34,18 @@ h3 {
         margin-right:20px;
 }
 
-#greeting { 
-
+#foot_help { 
+             margin-top:4px;
+             display:none;
 }
 
-#iamheremap_review { 
-              filter:alpha(opacity=100);
-              moz-opacity: 1.0 !important;
-              opacity: 1.0;
-              z-index:30;
-              position:absolute;
-              top:200px;
-              text-align:center;
+#getstarted { 
+              font-size:2em;
 }
 
-#iamheremap_reviewcontainer { 
-                              height:350px;
-                              width:600px;
-                              z-index:20;
-                              position:absolute;
-                              top:150px;
-                              text-align:center;
-}
-
-#iamheremap_reviewbackground{ 
-                              background-color:#000;
-                              filter:alpha(opacity=60);
-                              moz-opacity: 0.6;
-                              opacity: 0.6;
-                              text-align:center;
-                              height:100%;
-}
-
-#iamheremap_reviewclose{ 
-                         text-align:right;
-                              background-color:white;
-                         font-weight:700;
-                         padding:10px;
-}
-
-#loading { 
-           font-size:24pt;
-           font-weight:700;
+#getstarted a { 
+                color:#0099cc;
+                text-decoration:none;
 }
 
 #main { 
@@ -109,14 +58,16 @@ h3 {
         padding-right:10%;
 }
 
-#map { 
-       margin-bottom:10px;
+#main_settings { 
+                 font-size:11px;
+                 margin-top:30px;
+                 margin-left:275px;
 }
 
 #navi { 
-         list-style-type: none;
-           margin: 0px;
-         padding:0px;
+        list-style-type: none;
+        margin: 0px;
+        padding:0px;
         text-align:right;
         margin-right:20px;
 }
@@ -128,102 +79,52 @@ h3 {
            background-color:white;
            padding:8px;
            margin: 0px;
-         font-size:11px;
+           font-size:11px;
            font-weight:700;
            max-width:585px;
-}
+           }
 
 #navi li a { 
              text-decoration:none;
              color:darkslategray;
 }
 
-#options { 
-           max-width:585px;
-           width:585px;
-}
-
-#options_random { 
-           font-size:14pt;
-                  font-weight:700;
-}
-
-#options_random li { 
-                     float:right;
-                     margin:20px;
-                     list-style-type: none;
-                     border:2px solid #666;
-                     padding:10px;
-                     background-color:orange;
-}
-
-#options_random li a { 
-                       text-decoration:none;
-                       color:white;
-}
-
-#options_random_skip { 
-                       background-color:#ff9966 !important;
-}
-
-#options_random_noidea { 
-                         background-color:#cc3366 !important;
-}
-
 #problem { 
            color:red;
            font-weight:700;
-           font-size:14pt;
-           max-width:585px;
 }
 
 #problem a { 
              text-decoration:none;
 }
 
-#status { 
-          font-size:small;
-          color:#cc0066;
-          margin-bottom:10px;
+#signin { 
+          display:inline;
 }
 
-#token_change_main { 
-                     font-size:12pt;
-                     margin-top:15px;
-                     margin-bottom:20px;
+#signin input[type='submit'] { 
+          border:1px dotted yellow;
+          background-color:#ff0066;
+          color:white;
+          font-size:14px;
+          padding:5px;
 }
 
-#token_change_review_link { 
-                     font-size:12pt;
-                     margin-top:15px;
-                     margin-bottom:20px;
+#signout { 
+           display:inline;
+           margin-left:15px;
 }
 
-#token_skip { 
-                  font-size:14pt;
-              font-weight:700;
+#signout input[type='submit'] { 
+                 border:1px dotted white;
+                 background-color:#ff0066;
+                 color:white;
+                 font-size:14px;
+                 padding:5px;
 }
 
-#whatisthis { 
-              width:580px;
-              max-width:580px;
-              display:none;
-              text-align:right;
-              font-size:11px;             
-}
-
-#whatisthis_icon { 
-                   float:right;
-}
-
-#whatisthis_icon img { 
-                       border: 1px dotted #ccc;
-                       margin-left:15px;
-}
-
-#whatisthis_text { 
-                   margin-bottom:5px;
-                   font-weight:600;
+#update_settings { 
+                   font-size:large;
 }
 
 #whoami { 
@@ -234,323 +135,103 @@ h3 {
           margin-right:20px;
 }
 
-#whoami_mobile { 
-          float:right;
-          margin-left:20px;
-          margin-bottom:25px;
-          margin-right:20px;
-}
-
 /* classes */
 
-.about li { 
-            line-height:25px;
+.count_thumbs_hex { 
+                    text-align:center;
+                    font-size:10px;
+                    color:auto;
 }
 
-.alt_options { 
-               list-style-type:none;
+.count_thumbs_hex a { 
+                      text-decoration:none;
+                      color:#666;
 }
 
-.alt_options li { 
-                  margin-bottom:10px;
+.count_thumbs_hex a strong{ 
+                            font-size: 12px;
 }
 
-.alt_options li a { 
-                  text-decoration:none;
-                    color:#333366;
-                    font-weight:600;
+.error { 
+         font-weight:700;
+         color:red;
 }
 
-.approve_ok { 
-                font-size:18pt;
-                font-weight:700;
-                color:green;
+.buddy_hex { 
+             margin-bottom:5px;
 }
 
-.approve_fail { 
-                font-size:18pt;
-                font-weight:700;
-                color:#cc0066;
+.margin20 { 
+            margin-left:20%;
 }
 
-.block_ok { 
-                font-size:18pt;
-                font-weight:700;
-                color:green;
+.photos_hex { 
+              float:left;
+              margin-right:10px;
+              margin-bottom:10px;
 }
 
-.block_fail { 
-                font-size:18pt;
-                font-weight:700;
-                color:#cc0066;
+.slice { 
+         min-height:90px;
 }
 
-.block_user { 
-                   float:left;
-                   margin:10px;
-                   padding:10px;
+.slice_label { 
+               float:left;
+               width:225px;
+               text-align:right;
+               margin-right:50px;
+}
+
+.slice_inthelast { 
+                   color:#ccc;
                    font-weight:700;
-                   background-color:#333;
-                   border:2px solid #ccc;
-                   text-decoration:none;
-                   color:white;
+                   margin-bottom:5px;
+                   display:block;
 }
 
-.block_user a { 
-                   text-decoration:none;
-                   color:white;                     
+.slice_amountoftime { 
+                      color:#ff0084;
+                      font-weight:700;
+                      font-size:2em;
+                      display:block;
 }
 
-.blocked_users { 
-                 list-style-type: none;
+.slice_contacts {  }
+
+.slice_noone { 
+               font-weight:500;
+               font-size:1.5em;
+               color:#d0d0d0;
+               padding-top:10px;
 }
 
-.choose_user { 
-          border:3px solid #ccc;
-          color:#336699;
-          padding:10px;
-          font-size:large;
-          font-weight:700;
-          margin-top:20px;
+.slice_thumbs { 
+                margin-top:10px;
+                margin-left:275px;
 }
 
-.confirm_token_change { 
+.slice_thumbs_from { 
+                     margin-bottom:6px;
+                     font-size:12px;
+}
+
+.slice_thumb_hex { 
+                   margin-right:10px;
+                   margin-bottom:20px;
                    float:left;
-                   margin:10px;
-                   padding:10px;
-                   font-weight:700;
-                   background-color:green;
-                   border:2px solid #ccc;
-                   text-decoration:none;
-                   color:white;
 }
 
-.confirm_geocode { 
-                   float:left;
-                   margin:10px;
-                   padding:10px;
-                   font-weight:700;
-                   background-color:green;
-                   border:2px solid #ccc;
-                   text-decoration:none;
-                   color:white;
+.slice_thumb_title { 
+                     margin-top:12px;
+                     font-style:italic;
+                     text-align:center;
+                     font-size:10px;
+                     color:auto;
 }
 
-.current_photo{ 
-                border:solid thin #ccc;
-                padding:5px;
-}
-
-.do_suggest_link{ 
-                  font-weight:700;
-                  color:#ff0066;
-                  display:block;
-                  font-size:18pt;
-                  text-align:center;
-                  border:1px solid pink;
-                  margin-top:20px;
-                  padding:10px;
-                  text-decoration:none;
-}
-
-.fl_username { 
-               font-weight:700;
-               color:#cc0066;
-}
-
-.new_email_ok { 
-                font-size:18pt;
-                font-weight:700;
-                color:green;
-}
-
-.new_email_fail { 
-                font-size:18pt;
-                font-weight:700;
-                color:#cc0066;
-}
-
-.options {
-           font-size:30pt;
-           font-weight:700;
-           margin:0px;
-           margin-top:30pt;
-           margin-bottom:30pt;
-           list-style-type:none;
-}
-
-.options li {
-           margin-bottom:30px;
-              margin-left:25px;
-}
-
-.options li a {
-                text-decoration:none;
-                color:#ff0066;
-}
-
-.pending { 
-           margin-top:40px;
-}
-
-.pending_buddyicon { 
-                     float:left;
-}
-
-.pending_buddyicon img { 
-                         border: 1px dotted #ccc;
-                         margin-right:10px;
-}
-
-.pending_photo { 
-           float:left;
-           margin-right:60px;
-                 margin-bottom:50px;
-}
-
-.reject_ok { 
-                font-size:18pt;
-                font-weight:700;
-                color:green;
-}
-
-.reject_fail { 
-                font-size:18pt;
-                font-weight:700;
-                color:#cc0066;
-}
-
-.reject_token_change { 
-                   float:left;
-                   margin:10px;
-                   padding:10px;
-                   font-weight:700;
-                   background-color:#cc0066;
-                   border:2px solid #ccc;
-                   text-decoration:none;
-                   color:white;
-}
-
-.submit { 
-          border:3px solid #ccc;
-          background-color:#336699;
-          padding:10px;
-          font-size:large;
-          font-weight:700;
-          color:white;
-          margin-top:20px;
-}
-
-.suggest_fail { 
-                font-size:18pt;
-                font-weight:700;
-                color:#cc0066;
-}
-
-.suggest_ok { 
-                font-size:18pt;
-                font-weight:700;
-                color:green;
-}
-
-.suggestion_approve { 
-                   float:left;
-                   margin:10px;
-                     margin-left:0;
-                   padding:10px;
-                   font-weight:700;
-                   background-color:green;
-                   border:2px solid #ccc;
-}
-
-.suggestion_approve a { 
-                   text-decoration:none;
-                   color:white;                     
-}
-
-.suggestion_edit { 
-                   font-size:small;
-}
-
-.suggestion_permalink { 
-                        text-align:right;
-                        padding-top:20px;
-                          color:#666;
-}
-
-.suggestion_permalink a { 
-                          color:#666;
-}
-
-.suggestion_reject { 
-                   float:left;
-                   margin:10px;
-                   padding:10px;
-                   font-weight:700;
-                   background-color:#cc0066;
-                   border:2px solid #ccc;
-                   text-decoration:none;
-                   color:white;
-}
-
-.suggestion_reject a { 
-                   text-decoration:none;
-                   color:white;                     
-}
-
-.suggestion_showme { 
-                     font-size:11px;
-                     margin-bottom:20px;
-                     margin-top:20px;
-}
-
-.suggestion_showme a { 
-                       color:#ff0066;
-                       text-decoration:none;
-}
-
-.suggestion_tweak { 
-                    font-size:11px;
-                    border:1px dotted #ccc;
-                    background-color:#b0e0e6;
-                    margin-left:300px;
-                    margin-bottom:20px;
-                    padding:10px;
-                    padding-left:50px;
-                    display:none;
-                    background-image: url('/images/dot.gif');
-}
-
-.suggestion_tweak .suggestion_perms { 
-}
-
-.tag_placemaker_link { 
-                       color:#333366;
-                       text-decoration:none;
-                       font-weight:700;
-}
-
-.unblock_user { 
-                margin-left:20px;
-                padding:10px;
-                font-weight:700;
-                color:green;
-                text-decoration: none;
-}
-
-.unblock_user_fail { 
-                font-weight:700;
-                color:green;
-}
-
-.unblock_user_ok { 
-                font-weight:700;
-                color:green;
-}
-
-.whirclick { 
-             color:#666;
-             font-size:14pt;
-             font-weight:600;
-             font-style:italic;
+.status { 
+          margin-left: 275px;
+          margin-top: 10px;
+          font-style:italic;
+          color:#ff0084;
 }

@@ -1,9 +1,9 @@
 {% include "inc_head.html" %}
 
-<div style="margin-left:20%">
+<div class="margin20">
 {% if error %}
 
-<p>
+<p class="error">
 {% ifequal error 'invalid_crumb' %}
 Hrm. Your session seems to have expired.
 {% endifequal %}
@@ -20,7 +20,7 @@ Hey! That's an invalid filter.
 
 <p>This setting will filter which contacts with recent uploads you will see updates for.</p>
 
-<form method="POST" action="/settings" style="font-size:large;">
+<form method="POST" action="/settings" id="update_settings">
 	<input type="hidden" name="crumb" value="{{ settings_crumb|escape }}" />
         <input type="radio" name="filter" id="all" value="all" {% ifequal user.settings.search_in_contacts_filter 'all' %}checked"{% endifequal %} /> <label for="all">All your contacts</label>
         <br style="margin-bottom:15px;" />

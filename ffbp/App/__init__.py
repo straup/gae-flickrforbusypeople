@@ -123,6 +123,10 @@ class Main (ffbp.Request) :
   def get_buddyicon (self, nsid) :
       
       user = self.get_user(nsid)
+      
+      if user['iconserver'] == 0 :
+        return 'http://www.flickr.com/images/buddyicon.jpg'
+      
       return "http://farm%s.static.flickr.com/%s/buddyicons/%s.jpg" % (user['iconfarm'], user['iconserver'], nsid)
 
 class Settings (ffbp.Request) :
