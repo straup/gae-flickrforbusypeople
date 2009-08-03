@@ -106,31 +106,8 @@
 {% endif %}
 
 {% for slice in slices %}
-{% ifnotequal slice.count 0 %}
-{% include "inc_show_contacts.html"%}
-{% else %}
-{% include "inc_no_contacts.html"%}
-{% endifnotequal %}
+{% include "inc_main_contacts.html" %}
 {% endfor %}
 
-<div style="font-size:small;margin-top:30px;font-style:italic;">
-{% ifequal user.settings.search_in_contacts_filter 'all' %}
-
-{% if browser.mobile %}
-<a href="/settings">Switch to friends and family only</a>.
-
-{% else %}
-You are currently checking for recent uploads from all your contacts. <a href="/settings">Switch to friends and family only</a>.
-{% endif %}
-
-{% else %}
-
-{% if browser.mobile %}
-<a href="/settings">Switch to all your contacts</a>.
-{% else %}
-You are currently checking for recent uploads from friends and family only. <a href="/settings">Switch to all your contacts</a>.
-{% endif %}
-
-{% endifequal %}
-</div>
+{% include "inc_main_settings.html" %}
 {% include "inc_foot.html" %}
