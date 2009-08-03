@@ -50,6 +50,7 @@ class Dispatch (ffbp.Request, APIApp) :
             'auth_token' : self.user.token,
             'user_id' : self.request.get('user_id'),
             'min_upload_date' : self.request.get('min_upload_date'),
+            'extras' : 'owner_name',
             }
 
         rsp = self.api_call(method, args)

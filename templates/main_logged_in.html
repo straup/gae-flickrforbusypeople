@@ -2,35 +2,48 @@
 
 <script>
 
-  function show_photos(nsid, offset){
+  function show_photos(nsid, offset, duration){
 
 	$("#ffbp_status").html();
   	$("#ffbp_status").hide();
 
 	var hex = hex_md5(nsid);
-        var uid = "#photos_" + hex;
+	var short_hex = hex.substring(0, 6);
+
+        var uid = "thumbs_" + hex;
+
+  	var status_id = "status_" + duration;
+
+  	var container = "#slice_thumbs_" + duration;
 
   	var buddy_icon = $("#buddy_" + hex)[0].src;
 
-  	thumbs = $('[class=thumb_' + hex + ']');
+  	var kids = $(container).children();
 
-  	if (thumbs.length){
+	if (kids.length){
+		for (var i=0; i < kids.length; i++){
+  			var child = kids[i];
+  			var id = child.getAttribute("id");
+  			var el = $("#" + id);
 
-  		for (i=0; i < thumbs.length; i++){
-  			var id = thumbs[i].getAttribute('id');
-                        var el = $("#" + id);
+                        // console.log('uid: ' + uid + ' id: ' + id + ' css: ' + el.css('display'));
+ 
+			if ((id == uid) && (el.css('display') == 'none')){
+				el.show();
 
-  		        if (el.css('display') == 'block'){
-  			      el.hide();
-                              continue;
-  		        }
+				$("#count_" + uid).css('border', '2px solid #' + short_hex);
+                                continue;
+			}
 
-                        el.show();
-                }
+			$("#count_" + id).css('border', 'none');
+			el.hide();
+		}
+	}
 
-  		return;
-  	}
-
+	if ($("#" + uid).length){
+		return;                                  
+	}
+                                  
   	var api_args = {
 		'host' : '{{ host_url }}',
   	};
@@ -46,8 +59,8 @@
 
   	api.api_call('search', search_args, function (rsp){
 
-		$("#ffbp_status").html();
-  		$("#ffbp_status").hide();
+		$("#" + status_id).html();
+  		$("#" + status_id).hide();
 
                 $("#buddy_" + hex)[0].src = buddy_icon;
 
@@ -60,7 +73,11 @@
                         return;
   		}
 
-
+		var html = '<div id="' + uid + '">';
+		//html += '<div style="margin-bottom:4px;font-size:small;">';
+		//html += 'From <a href="http://www.flickr.com/photos/' + nsid + '" target="_flickr">' + rsp['photos']['photo'][0]['ownername'] + '</a>:';
+		//html += '</div>';
+                                  
   		for (i in rsp.photos.photo){
   			var ph = rsp.photos.photo[i];
 
@@ -73,28 +90,32 @@
                         img += '<img src="' + src + '" height="' + sz + '" width="' + sz + '" style="border:3px solid #' + short_hex + ';" />';
                         img += '</a>';
 
-  			var html = '<div id="thumb_' + ph['id'] + '" class="thumb_' + hex + '" style="margin-right:10px;margin-bottom:20px; float:left">';
+  			html += '<div id="thumb_' + ph['id'] + '" class="thumb_' + hex + '" style="margin-right:10px;margin-bottom:20px; float:left">';
                         html += img;
                         html += '<div style="margin-top:12px;font-style:italic;text-align:center;font-size:10px;color:auto;">' + ph['title'].substring(0, 6) + '...</div>';
                         html += '</div>';
-
-  			$(uid).append(html);
   		}
+
+		html += '</div>';
+		$(container).append(html);
+
+		$("#count_" + uid).css('border', '2px solid #' + short_hex);
 
   	}, function (rsp) {
 
                 $("#buddy_" + hex)[0].src = buddy_icon;
 
-		$("#ffbp_status").html('Unable to retrieve any photos for that user. The attempt failed with the following message:<br /><br />' + rsp.error.message);
-		$("#ffbp_status").show();
+		$("#" + status_id).html('Unable to retrieve any photos for that user. The attempt failed with the following message:<br /><br />' + rsp.error.message);
+		$("#" + status_id).show();
 		return;
   	});
 
         $("#buddy_" + hex)[0].src = "/images/loading.gif";
                               
-	$("#ffbp_status").html("Retrieving photos...");
-  	$("#ffbp_status").show();
+	$("#" + status_id).html("Retrieving photos...");
+  	$("#" + status_id).show();
   }
+
 
 </script>
 
@@ -104,6 +125,8 @@
 <div id="ffbp_status" style="z-index:100;"></div>
 </div>
 {% endif %}
+
+<br />
 
 {% for slice in slices %}
 {% include "inc_main_contacts.html" %}

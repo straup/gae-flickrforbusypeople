@@ -37,10 +37,11 @@ h3 {
 #ffbp_status { 
               display:none;
               color:darkslategray;
-              border:1px dotted #6699ff;
+              /*border:1px dotted #6699ff;
               background-image: url('/images/dot.gif');
               padding:7px;
               padding-left:none;
+		*/
               font-weight:700;
                width:100%;
                text-align:right;
@@ -104,7 +105,7 @@ h3 {
         border:1px dotted #ccc;
         padding:30px;
         padding-bottom:60px;
-        padding-left:5%;
+        padding-left:10%;
         padding-right:10%;
 }
 
