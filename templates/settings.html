@@ -21,9 +21,9 @@ Hey! That's an invalid filter.
 
 <form method="POST" action="/settings" style="font-size:large;">
 	<input type="hidden" name="crumb" value="{{ settings_crumb|escape }}" />
-        <input type="radio" name="filter" value="all" {% ifequal user.settings.search_in_contacts_filter 'all' %}checked"{% endifequal %} /> All your contacts
-        <br />
-        <input type="radio" name="filter" value="ff"  {% ifequal user.settings.search_in_contacts_filter 'ff' %}checked"{% endifequal %} /> Only friends and family
+        <input type="radio" name="filter" id="all" value="all" {% ifequal user.settings.search_in_contacts_filter 'all' %}checked"{% endifequal %} /> <label for="all">All your contacts</label>
+        <br style="margin-bottom:15px;" />
+        <input type="radio" name="filter" id="ff" value="ff"  {% ifequal user.settings.search_in_contacts_filter 'ff' %}checked"{% endifequal %} /> <label for="ff">Only friends and family</label>
         <br /><br />
         <input type="submit" value="UPDATE" />
 </form>
