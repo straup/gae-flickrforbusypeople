@@ -13,8 +13,7 @@ body {
 }
 
 h2 { 
-     color:#cc0099;
-
+     color:#ff0084;
 }
 
 h3 { 
@@ -36,7 +35,8 @@ h3 {
 }
 
 #getstarted { 
-              font-size:2em;
+              font-size:1.5em;
+              text-align:center;
 }
 
 #getstarted a { 
@@ -155,7 +155,7 @@ h3 {
 }
 
 .margin20 { 
-            margin-left:20%;
+
 }
 
 .photos_hex { 

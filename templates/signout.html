@@ -2,10 +2,12 @@
 
 <h2>Are you sure you want to sign out of flickr for busy people?</h2>
 
-                <form method="POST" action="/signout" style="display:inline;margin-left:15px;">
+<div style="text-align:center;margin-bottom:40px;margin-top:30px;">
+                <form method="POST" action="/signout" style="display:inline;">
                   <input type="hidden" name="crumb" value="{{ logout_crumb|escape }}" />
                   <input type="submit" value="yes please, sign me out" style="border:1px dotted white;background-color:darkslategray;color:white;font-size:14px;padding:5px;" />
                 </form>
+</div>
 
 <p>Or just go back to your <a href="/">recent uploads page.</p>
 

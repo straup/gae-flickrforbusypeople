@@ -12,8 +12,8 @@ body {
 }
 
 h2 { 
-     color:#cc0099;
-
+     color:#ff0084;
+     font-size:2em;
 }
 
 h3 { 
@@ -24,7 +24,13 @@ h3 {
 /* ids */
 
 #example_image { 
-                 margin-left:6%;
+                 margin-left:75px;
+                 margin-bottom:30px;
+}
+
+#example_image img { 
+                     //border:1px dotted #ccc;
+                     padding:5px;
 }
 
 #foot { 
