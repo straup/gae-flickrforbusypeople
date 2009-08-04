@@ -13,7 +13,9 @@
 	
 </script>
 
+{% ifequal browser.mobile 0 %}
 <br /><br />
+{% endifequal %}
 
 {% for slice in slices %}
 {% include "inc_main_contacts.html" %}
