@@ -196,7 +196,9 @@ h3 {
                       display:block;
 }
 
-.slice_contacts {  }
+.slice_contacts {
+                  margin-left:275px;
+}
 
 .slice_noone { 
                font-weight:500;
@@ -207,7 +209,6 @@ h3 {
 
 .slice_thumbs { 
                 margin-top:10px;
-                margin-left:275px;
 }
 
 .slice_thumbs_from { 

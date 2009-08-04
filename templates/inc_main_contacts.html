@@ -2,14 +2,14 @@
 	<div class="slice_label">
           <span class="slice_inthelast">in the last</span>
           <span class="slice_amountoftime">
-	    &#160;
             {% ifequal slice.duration '30m' %}30 minutes{% endifequal %}
             {% ifequal slice.duration '2h' %}2 hours{% endifequal %}
             {% ifequal slice.duration '4h' %}4 hours{% endifequal %}
+            {% ifequal slice.duration '12h' %}12 hours{% endifequal %}
 	  </span>
 	</div>
 
-<div id="slice_contacts">
+<div class="slice_contacts">
 
 {% ifequal slice.count 0 %}
 	<div class="slice_noone">Nothing new...</div>

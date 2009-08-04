@@ -21,11 +21,13 @@ class Main (ffbp.Request) :
     contacts_30m = self.get_contacts('30m', [])
     contacts_2h = self.get_contacts('2h', contacts_30m['filter'])
     contacts_4h = self.get_contacts('4h', contacts_2h['filter'])
+    contacts_12h = self.get_contacts('12h', contacts_4h['filter'])    
     
     slices = []
     slices.append(contacts_30m)
     slices.append(contacts_2h)
     slices.append(contacts_4h)
+    slices.append(contacts_12h)    
 
     self.assign('slices', slices)
     self.display("main_logged_in.html")
@@ -39,6 +41,8 @@ class Main (ffbp.Request) :
         hours = 2
     elif duration == '4h' :
         hours = 4
+    elif duration == '12h' :
+        hours = 12        
     else :
         duration = 1
         hours = 1

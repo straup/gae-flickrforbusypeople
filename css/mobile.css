@@ -9,6 +9,7 @@ body {
        margin-right:0;
        margin-bottom:60px;
        background-image: url('/images/bluetile.gif');
+        max-width:400px;
 }
 
 h2 { 
@@ -49,14 +50,11 @@ h3 {
         border:1px dotted #ccc;
         padding:30px;
         padding-bottom:60px;
-        padding-left:10%;
-        padding-right:10%;
 }
 
 #main_settings { 
                  font-size:11px;
                  margin-top:30px;
-                 margin-left:275px;
 }
 
 #navi { 
@@ -171,24 +169,18 @@ h3 {
 }
 
 .slice_label { 
-               float:left;
-               width:225px;
-               text-align:right;
                margin-right:50px;
 }
 
 .slice_inthelast { 
-                   color:#ccc;
-                   font-weight:700;
-                   margin-bottom:5px;
-                   display:block;
+                   display:none;
 }
 
 .slice_amountoftime { 
                       color:#ff0084;
                       font-weight:700;
-                      font-size:2em;
                       display:block;
+                      margin-bottom:10px;
 }
 
 .slice_contacts {  }
@@ -202,7 +194,6 @@ h3 {
 
 .slice_thumbs { 
                 margin-top:10px;
-                margin-left:275px;
 }
 
 .slice_thumbs_from { 
@@ -225,7 +216,6 @@ h3 {
 }
 
 .status { 
-          margin-left: 275px;
           margin-top: 10px;
           font-style:italic;
           color:#ff0084;
