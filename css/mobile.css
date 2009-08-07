@@ -104,8 +104,8 @@ h3 {
 }
 
 #signout { 
-           display:inline;
-           margin-left:15px;
+           margin-bottom:40px;
+           margin-top:30px;
 }
 
 #login_input { 
@@ -219,4 +219,14 @@ h3 {
           margin-top: 10px;
           font-style:italic;
           color:#ff0084;
+}
+
+.submit { 
+          border:3px solid #ccc;
+          background-color:#336699;
+          padding:10px;
+          font-size:large;
+          font-weight:700;
+          color:white;
+          margin-top:20px;
 }

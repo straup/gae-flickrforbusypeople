@@ -234,3 +234,13 @@ h3 {
           font-style:italic;
           color:#ff0084;
 }
+
+.submit { 
+          border:3px solid #ccc;
+          background-color:#336699;
+          padding:10px;
+          font-size:large;
+          font-weight:700;
+          color:white;
+          margin-top:20px;
+}
