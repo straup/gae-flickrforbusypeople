@@ -110,7 +110,9 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
 		html += '</div>';
 		$(container).append(html);
 
-                window.location.href = "#slice_" + duration;
+                if (duration == '8h'){
+                	window.location.href = "#slice_" + duration;
+		}
 
   	}, function (rsp) {
 

@@ -26,7 +26,8 @@ Hey! That's an invalid filter.
         <br style="margin-bottom:15px;" />
         <input type="radio" name="filter" id="ff" value="ff"  {% ifequal user.settings.search_in_contacts_filter 'ff' %}checked"{% endifequal %} /> <label for="ff">Only friends and family</label>
         <br /><br />
-        <input type="submit" value="UPDATE" />
+        <input type="submit" value="UPDATE" class="submit" />
+        <br /><br />
 </form>
 
 {% endif %}
