@@ -43,8 +43,6 @@ class Main (ffbp.Request) :
         hours = 4
     elif duration == '8h' :
         hours = 8        
-    elif duration == '12h' :
-        hours = 12        
     else :
         duration = 1
         hours = 1
@@ -53,6 +51,10 @@ class Main (ffbp.Request) :
     dt = int(time.time() - offset)
 
     contacts_filter = self.user.settings.search_in_contacts_filter
+
+    # TO DO: Backet times, so 30 minutes becomes 0-30 minutes
+    # and 2hr becomes 30-120 minutes and so on. This requires
+    # changes in the Flickr API itself.
     
     args = {
         'auth_token' : self.user.token,
@@ -82,13 +84,6 @@ class Main (ffbp.Request) :
         if c['nsid'] in filter :
             continue
         
-        args = {
-            'user_id' : c['nsid'],
-            'method' : 'flickr.photos.search',
-            'auth_token' : self.user.token,
-            'min_upload_date' : dt,
-            }
-
         icon = self.get_buddyicon(c['nsid'])
 
         hex = md5.new(c['nsid']).hexdigest()
