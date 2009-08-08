@@ -15,6 +15,13 @@ I find it tremendously useful for keeping up with my contacts uploads,
 especially those people who are awake and using Flickr while I am asleep. Your
 mileage may vary.
 
+A NOTE ABOUT MOBILE DEVICES
+
+ffbp works in, and is formatted for, the iPhone and iPod Touch browser. It could
+probably be could probably be made to play nicely with the S60 browser but since
+debugging JavaScript for those devices is such a nuisance I more or less gave up
+trying. I would welcome suggestions or patches. 
+
 REQUIREMENTS
 
 If you want to run your own version of ffbp, you will need:
