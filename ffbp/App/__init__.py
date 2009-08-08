@@ -129,6 +129,9 @@ class Main (ffbp.Request) :
   def get_buddyicon (self, nsid) :
       
       user = self.get_user(nsid)
+
+      if not user :
+        return 'http://www.flickr.com/images/buddyicon.jpg'
       
       if int(user['iconserver']) == 0 :
         return 'http://www.flickr.com/images/buddyicon.jpg'
