@@ -1,7 +1,5 @@
-This is the source code that runs Flickr For Busy Peopl (ffbp):
-
-ffbp is a Flickr API (web) application that runs on the Google AppEngine (GAE)
-platform:
+This is the source code that runs Flickr For Busy People (ffbp). ffbp is a
+Flickr API (web) application that runs on the Google AppEngine (GAE) platform:
 
 http://flickrforbusypeople.appspot.com
 
@@ -33,10 +31,17 @@ If you want to run your own version of ffbp, you will need:
 
   http://code.google.com/appengine/downloads.html
 
-* The gae-FlickrApp package
+There are two other dependencies which are actually included as part of the
+package itself. They are:
+
+* gae-FlickrApp
 
   http://github.com/straup/gae-flickrapp/tree/master
 
-* The gae-APIApp package
+* gae-APIApp
 
   http://github.com/straup/gae-APIApp/tree/master
+
+I mention that just because they are not specific to ffbp but are bundled with
+the code for sake of keeping things simple. You should be aware that the
+versions here may not be the same as those under active development.
