@@ -17,10 +17,10 @@ mileage may vary.
 
 A NOTE ABOUT MOBILE DEVICES
 
-ffbp works in, and is formatted for, the iPhone and iPod Touch browser. It could
-probably be could probably be made to play nicely with the S60 browser but since
-debugging JavaScript for those devices is such a nuisance I more or less gave up
-trying. I would welcome suggestions or patches. 
+ffbp works in, and can be formatted for, the iPhone and iPod Touch browser. It
+could probably be could probably be made to play nicely with the S60 browser but
+since debugging JavaScript for those devices is such a nuisance I more or less
+gave up trying. I would welcome suggestions or patches. 
 
 REQUIREMENTS
 
