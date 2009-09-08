@@ -103,35 +103,15 @@ class Main (ffbp.Request) :
         
     return {'contacts' : contacts, 'filter' : new_filter, 'error' : None, 'offset' : dt, 'duration' : duration, 'count' : len(contacts) }
 
+  # deprecated
+  
   def get_user (self, nsid) :
-
-      memkey = "people_getinfo_%s" % nsid
-      cache = memcache.get(memkey)
-      
-      if cache :
-          return cache
-
-      rsp = self.api_call('flickr.people.getInfo', {'user_id' : nsid, 'auth_token' : self.user.token})
-      
-      if not rsp or rsp['stat'] != 'ok' :
-          return
-
-      ttl = 60 * 60 * 24 * 14
-      
-      memcache.add(memkey, rsp['person'], ttl)
-      return rsp['person']
-
+    return self.flickr_get_user_info(nsid)
+  
+  # deprecated
+  
   def get_buddyicon (self, nsid) :
-      
-      user = self.get_user(nsid)
-
-      if not user :
-        return 'http://www.flickr.com/images/buddyicon.jpg'
-      
-      if int(user['iconserver']) == 0 :
-        return 'http://www.flickr.com/images/buddyicon.jpg'
-      
-      return "http://farm%s.static.flickr.com/%s/buddyicons/%s.jpg" % (user['iconfarm'], user['iconserver'], nsid)
+    return self.flickr_get_buddyicon(nsid)
 
 class Settings (ffbp.Request) :
 

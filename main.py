@@ -18,5 +18,5 @@ if __name__ == '__main__':
     ('/api', ffbp.API.Dispatch),      
     ]
 
-  application = webapp.WSGIApplication(handlers, debug=True)
+  application = webapp.WSGIApplication(handlers, debug=False)
   wsgiref.handlers.CGIHandler().run(application)
