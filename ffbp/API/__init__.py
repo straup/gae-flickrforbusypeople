@@ -67,4 +67,3 @@ class Dispatch (ffbp.Request, APIApp) :
             embiggen = 1;
             
         return self.api_ok({'photos' : rsp['photos'], 'embiggen' : embiggen})
-        

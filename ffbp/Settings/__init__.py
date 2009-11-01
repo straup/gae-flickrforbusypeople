@@ -30,4 +30,9 @@ def search_in_contacts_filter (nsid, context='all') :
     settings = get_settings_for_user(nsid)
     settings.search_in_contacts_filter = context
     settings.put()
-    
+
+def embiggen_photos (nsid, bool=True) :
+
+    settings = get_settings_for_user(nsid)
+    settings.embiggen_photos = bool
+    settings.put()

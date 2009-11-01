@@ -61,6 +61,7 @@ h3 {
                  font-size:11px;
                  margin-top:30px;
                  margin-left:275px;
+                 text-align:right;
 }
 
 #navi { 
@@ -99,6 +100,19 @@ h3 {
 
 #signin { 
           display:inline;
+}
+
+#settings { 
+            margin-left:12%;
+}
+
+#settings p { 
+              font-size:small;
+}
+
+#settings_dothis { 
+                   text-align:right;
+                   margin-right:5%;
 }
 
 #signin input[type='submit'] { 
@@ -158,6 +172,10 @@ h3 {
 
 .buddy_hex { 
              margin-bottom:5px;
+}
+
+.margin15 { 
+            margin-left:15%;
 }
 
 .margin20 { 

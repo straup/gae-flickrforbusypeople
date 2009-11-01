@@ -1,6 +1,6 @@
 {% include "inc_head.html" %}
 
-<div class="margin20">
+<div id="settings">
 {% if error %}
 
 <p class="error">
@@ -16,23 +16,51 @@ Hey! That's an invalid filter.
 <p><a href="/settings">Would you like to try again?</a></p>
 {% else %}
 
-<h2>Update which contacts you want to get busy for</h2>
-
-<p>This setting will filter which contacts with recent uploads you will see updates for.</p>
-
 <form method="POST" action="/settings" id="update_settings">
 	<input type="hidden" name="crumb" value="{{ settings_crumb|escape }}" />
-        <input type="radio" name="filter" id="all" value="all" {% ifequal user.settings.search_in_contacts_filter 'all' %}checked"{% endifequal %} /> <label for="all">All your contacts</label>
+
+        <h2>Whose photos do you want to see?</h2>
+
+        <p>This setting will filter which contacts with recent uploads you will see updates for.</p>
+
+        <br />
+
+        <input type="radio" name="filter" id="all" value="all" {% ifequal user.settings.search_in_contacts_filter 'all' %}checked{% endifequal %} /> <label for="all">All of my contacts</label>
         <br style="margin-bottom:15px;" />
-        <input type="radio" name="filter" id="ff" value="ff"  {% ifequal user.settings.search_in_contacts_filter 'ff' %}checked"{% endifequal %} /> <label for="ff">Only friends and family</label>
+        <input type="radio" name="filter" id="ff" value="ff"  {% ifequal user.settings.search_in_contacts_filter 'ff' %}checked{% endifequal %} /> <label for="ff">Only friends and family</label>
+
+        <h2>How big should those photos be?</h2>
+
+        <p>This setting will determine whether to display small thumbnails or large (500 pixels) versions of your contacts photos.</p>
+
+        <p style="font-style:italic;">You may regret embiggen-izing photos when one of your contacts posts 300 wedding pictures in one go but that's your business.</p>
+
+        <br />
+
+        {% comment %} I HATE DJANGO TEMPLATES, YES I DO {% endcomment %}
+
+        {% ifequal user.settings.embiggen_photos None %}
+        <input type="radio" name="embiggen" id="small" value="no" checked /> <label for="small">Small is beautiful</label>
+        <br style="margin-bottom:15px;" />
+        <input type="radio" name="embiggen" id="big" value="yes" /> <label for="big">Embiggen the photos, please</label>
+        {% else %}
+        <input type="radio" name="embiggen" id="small" value="no" {% if user.settings.embiggen_photos %}{% else %}checked{% endif %} /> <label for="small">Small is beautiful</label>
+        <br style="margin-bottom:15px;" />
+        <input type="radio" name="embiggen" id="big" value="yes"  {% if user.settings.embiggen_photos %}checked{% endif %} /> <label for="big">Embiggen-ized photos</label>
+        {% endifequal %}
+
         <br /><br />
-        <input type="submit" value="UPDATE" class="submit" />
-        <br /><br />
+
+        <div id="settings_dothis">
+          <input type="submit" value="UPDATE" class="submit" />
+          <br /><br />
+        
+          <p>Or just go back to your <a href="/">recent uploads page.</p>
+        </div>
 </form>
 
 {% endif %}
 
-<p>Or just go back to your <a href="/">recent uploads page.</p>
 </div>
 
 {% include "inc_foot.html" %}

@@ -84,7 +84,7 @@ class Main (ffbp.Request) :
         if c['nsid'] in filter :
             continue
         
-        icon = self.get_buddyicon(c['nsid'])
+        icon = self.flickr_get_buddyicon(c['nsid'])
 
         hex = md5.new(c['nsid']).hexdigest()
         short_hex = hex[0:6]
@@ -102,16 +102,6 @@ class Main (ffbp.Request) :
         new_filter.append(c['nsid'])
         
     return {'contacts' : contacts, 'filter' : new_filter, 'error' : None, 'offset' : dt, 'duration' : duration, 'count' : len(contacts) }
-
-  # deprecated
-  
-  def get_user (self, nsid) :
-    return self.flickr_get_user_info(nsid)
-  
-  # deprecated
-  
-  def get_buddyicon (self, nsid) :
-    return self.flickr_get_buddyicon(nsid)
 
 class Settings (ffbp.Request) :
 
@@ -138,13 +128,26 @@ class Settings (ffbp.Request) :
             self.display('settings.html')
             return
 
+        #
+        
         filter = self.request.get('filter')
+
+        ffbp.Settings.search_in_contacts_filter(self.user.nsid, filter)
+
+        #
+        
+        embiggen = self.request.get('embiggen')        
 
         if not filter in ('all', 'ff') :
             self.assign('error', 'invalid_filter')
             self.display('settings.html')
             return
-        
-        ffbp.Settings.search_in_contacts_filter(self.user.nsid, filter)
+
+        if embiggen == 'yes' :
+          ffbp.Settings.embiggen_photos(self.user.nsid, True)
+        else :
+          ffbp.Settings.embiggen_photos(self.user.nsid, False)        
+
+        #
 
         self.redirect('/')

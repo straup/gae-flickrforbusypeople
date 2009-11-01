@@ -1,20 +1,15 @@
 <div id="main_settings">
+{% if browser.mobile %}
+<a href="/settings">settings</a>.
+{% else %}
+
 {% ifequal user.settings.search_in_contacts_filter 'all' %}
-
-{% if browser.mobile %}
-<a href="/settings">Switch to friends and family only</a>.
-
+You are currently checking for recent uploads ({% if user.settings.embiggen_photos %}embiggen-ed{% else %}in thumbnail format{% endif %}) from all your contacts 
 {% else %}
-You are currently checking for recent uploads from all your contacts. <a href="/settings">Switch to friends and family only</a>.
-{% endif %}
-
-{% else %}
-
-{% if browser.mobile %}
-<a href="/settings">Switch to all your contacts</a>.
-{% else %}
-You are currently checking for recent uploads from friends and family only. <a href="/settings">Switch to all your contacts</a>.
-{% endif %}
-
+You are currently checking for recent uploads ({% if user.settings.embiggen_photos %}embiggen-ed{% else %}in thumbnail format{% endif %}) from friends and family only
 {% endifequal %}
+
+[&#160;<a href="/settings">update your settings</a>&#160;]
+
+{% endif %}
 </div>
