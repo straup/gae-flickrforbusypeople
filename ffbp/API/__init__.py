@@ -60,6 +60,11 @@ class Dispatch (ffbp.Request, APIApp) :
 
         if rsp['stat'] != 'ok' :
             return self.api_error()
-        
-        return self.api_ok({'photos' : rsp['photos']})        
+
+        embiggen = 0;
+
+        if self.user.settings.embiggen_photos :
+            embiggen = 1;
+            
+        return self.api_ok({'photos' : rsp['photos'], 'embiggen' : embiggen})
         

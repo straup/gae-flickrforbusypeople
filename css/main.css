@@ -224,7 +224,7 @@ h3 {
 .slice_thumb_title { 
                      margin-top:12px;
                      font-style:italic;
-                     text-align:center;
+                     //text-align:center;
                      font-size:10px;
                      color:auto;
 }

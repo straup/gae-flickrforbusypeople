@@ -88,7 +88,9 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
 		html += '<div class="slice_thumbs_from">';
 		html += 'From <a href="http://www.flickr.com/photos/' + nsid + '" target="_flickr">' + rsp['photos']['photo'][0]['ownername'] + '</a>:';
 		html += '</div>';
-                                  
+
+                var embiggen = rsp.embiggen;
+
   		for (i in rsp.photos.photo){
   			var ph = rsp.photos.photo[i];
 
@@ -97,13 +99,33 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
   			var link = 'http://www.flickr.com/photos/' + ph['owner'] + '/' + ph['id'];
   			var src = 'http://farm' + ph['farm'] + '.static.flickr.com/' + ph['server'] + '/' + ph['id'] + '_' + ph['secret'] + '_s.jpg';
 
+                        if (embiggen){
+                            src = 'http://farm' + ph['farm'] + '.static.flickr.com/' + ph['server'] + '/' + ph['id'] + '_' + ph['secret'] + '.jpg';
+                        }
+
   			var img = '<a href="' + link + '" target="_fl' + ph['id'] + '">';
-                        img += '<img src="' + src + '" height="' + sz + '" width="' + sz + '" style="border:3px solid #' + short_hex + ';" />';
+
+                        if (embiggen){
+                            img += '<img src="' + src + '" style="border:4px solid #' + short_hex + ';" />';
+                        }
+
+                        else {
+                            img += '<img src="' + src + '" height="' + sz + '" width="' + sz + '" style="border:3px solid #' + short_hex + ';" />';
+                        }
+
                         img += '</a>';
 
   			html += '<div id="thumb_' + ph['id'] + '" class="slice_thumb_hex">';
                         html += img;
-                        html += '<div class="slice_thumb_title">' + ph['title'].substring(0, 6) + '...</div>';
+
+                        if (embiggen){
+                            html += '<div class="slice_thumb_title">' + ph['title'] + '...</div>';
+                        }
+
+                        else {
+                            html += '<div class="slice_thumb_title">' + ph['title'].substring(0, 6) + '...</div>';
+                        }
+
                         html += '</div>';
   		}
 

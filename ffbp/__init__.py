@@ -14,6 +14,6 @@ class Request (FlickrAppRequest) :
 
         settings = ffbp.Settings.get_settings_for_user(self.user.nsid)
         self.user.settings = settings
-
+        
         return True
         
