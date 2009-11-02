@@ -90,6 +90,14 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
 		html += '</div>';
 
                 var embiggen = rsp.embiggen;
+                
+                var count = parseInt(rsp.photos.total);
+
+                if ((embiggen) && (count > 20)){
+                    embiggen = 0;
+
+                    html += '<div class="donot_embiggen">Embiggen-ing has been disabled for ' + rsp['photos']['photo'][0]['ownername'] + '\' photos, this time, because there are way too many of them to display at once. It\'s probably a job best handled by <a href="http://www.flickr.com/photos/' + rsp['photos']['photo'][0]['owner'] + '" target="_flickr">their Flickr photostream</a>.</div>';
+                }
 
   		for (i in rsp.photos.photo){
   			var ph = rsp.photos.photo[i];

@@ -21,8 +21,8 @@
 	
 	<div id="photos_{{ c.nsid_hex|escape }}" class="photos_hex">
 
-		<a href="#" onclick="window.ffbp.show_photos('{{ c.nsid|escape }}', '{{ slice.offset}}', '{{ slice.duration|escape }}');return false;">
-          	<img id="buddy_{{ c.nsid_hex}}" src="{{ c.buddyicon }}" height="48" width="48" class="buddy_hex" style="border:3px solid #{{ c.nsid_short_hex}};" />
+		<a href="#" onclick="window.ffbp.show_photos('{{ c.nsid|escape }}', '{{ slice.offset}}', '{{ slice.duration|escape }}');return false;" title="yay! new photos from {{ c.username|escape }}">
+          	  <img id="buddy_{{ c.nsid_hex}}" src="{{ c.buddyicon }}" height="48" width="48" class="buddy_hex" style="border:3px solid #{{ c.nsid_short_hex}};" alt="{{ c.username|escape }}" />
         	</a>
 
                 <div id="count_thumbs_{{ c.nsid_hex }}" class="count_thumbs_hex">
