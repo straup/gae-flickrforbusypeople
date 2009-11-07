@@ -1,3 +1,5 @@
+from config import config
+
 import ffbp
 import ffbp.Settings
 
@@ -16,7 +18,9 @@ class Main (ffbp.Request) :
         return
 
     search_crumb = self.generate_crumb(self.user, 'method=search')
+    contacts_crumb = self.generate_crumb(self.user, 'method=contacts')    
     self.assign('search_crumb', search_crumb)
+    self.assign('contacts_crumb', contacts_crumb)
     
     contacts_30m = self.get_contacts('30m', [])
     contacts_2h = self.get_contacts('2h', contacts_30m['filter'])
@@ -50,6 +54,9 @@ class Main (ffbp.Request) :
     offset = 60 * 60 * hours
     dt = int(time.time() - offset)
 
+    if config['ffbp_deferred_loading'] : 
+      return {'contacts' : [], 'filter' : filter, 'error' : None, 'defer' : 1, 'offset' : dt, 'duration' : duration, 'count' : 0 }
+
     contacts_filter = self.user.settings.search_in_contacts_filter
 
     # TO DO: Backet times, so 30 minutes becomes 0-30 minutes
@@ -61,7 +68,7 @@ class Main (ffbp.Request) :
         'date_lastupload' : dt,
         'filter' : contacts_filter,
     }
-
+      
     rsp = self.api_call('flickr.contacts.getListRecentlyUploaded', args)
     
     contacts = []
@@ -69,7 +76,7 @@ class Main (ffbp.Request) :
     
     if not rsp or rsp['stat'] != 'ok' :
 
-        error = 'INVISIBLE ERRORCAT HISSES AT YOU'
+        error = 'Hrm. Something went wrong calling the Flickr API...'
 
         if rsp :
             error = rsp['message']

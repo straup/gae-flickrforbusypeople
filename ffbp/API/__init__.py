@@ -1,6 +1,11 @@
 from APIApp import APIApp
 import ffbp
 
+import time
+import md5
+
+import logging
+
 class Dispatch (ffbp.Request, APIApp) :
     
     def __init__ (self):
@@ -26,6 +31,13 @@ class Dispatch (ffbp.Request, APIApp) :
         if method == 'search' :
             return self.__search()
 
+        elif method == 'contacts' :
+            return self.__contacts()
+
+        else :
+            self.api_error(404, 'Invalid method')
+            return
+        
     def ensure_crumb (self, path) :
 
         if not self.validate_crumb(self.user, path, self.request.get('crumb')) :
@@ -67,3 +79,82 @@ class Dispatch (ffbp.Request, APIApp) :
             embiggen = 1;
             
         return self.api_ok({'photos' : rsp['photos'], 'embiggen' : embiggen})
+
+    def __contacts (self) :
+
+        required = ('crumb', 'offset')
+        
+        if not self.ensure_args(required) :
+            return 
+
+        if not self.ensure_crumb('method=contacts') :
+            return
+
+        duration = self.request.get('offset')
+        
+        if duration == '30m' :
+            hours = .5
+        elif duration == '2h' :
+            hours = 2
+        elif duration == '4h' :
+                    hours = 4
+        elif duration == '8h' :
+            hours = 8        
+        else :
+            duration = 1
+            hours = 1
+        
+        offset = 60 * 60 * hours
+        dt = int(time.time() - offset)
+
+        contacts_filter = self.user.settings.search_in_contacts_filter
+
+        args = {
+            'auth_token' : self.user.token,
+            'date_lastupload' : dt,
+            'filter' : contacts_filter,
+            }
+
+        rsp = self.api_call('flickr.contacts.getListRecentlyUploaded', args)
+        
+        contacts = []
+
+        foo = None
+        
+        if not rsp or rsp['stat'] != 'ok' :
+
+            code = 999
+            error = 'Hrm. Something went wrong calling the Flickr API...'
+
+            if rsp :
+                code = rsp['code']
+                error = rsp['message']
+
+            self.api_error(code, error)
+            return
+        
+        elif rsp['contacts']['total'] == 0 :
+            foo = {'contacts' : contacts, 'error' : None, 'offset' : dt, 'duration' : duration, 'count' : 0 }
+
+        else :
+            for c in rsp['contacts']['contact'] :
+
+                icon = self.flickr_get_buddyicon(c['nsid'])
+
+                hex = md5.new(c['nsid']).hexdigest()
+                short_hex = hex[0:6]
+
+                user = {
+                    'username' : c['username'],
+                    'nsid' : c['nsid'],
+                    'nsid_hex' : hex,
+                    'nsid_short_hex' : short_hex,
+                    'count' : c['photos_uploaded'],
+                    'buddyicon' : icon,
+                    }
+        
+                contacts.append(user)
+        
+            foo =  {'contacts' : contacts, 'error' : None, 'offset' : dt, 'duration' : duration, 'count' : len(contacts) }
+
+        return self.api_ok(foo)

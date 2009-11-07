@@ -12,6 +12,8 @@ if (! info.aaronland.ffbp){
 
 info.aaronland.ffbp.Photos = function(args){
     this.args = args;
+
+    this.contacts_seen = {};
 };
 
 // do the thing to inherit from info.aaronland.flickrapp.API here (see below) ...
@@ -61,7 +63,7 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
 		'user_id' : nsid,
   		'min_upload_date' : offset,
   		'format' : 'json',
-  		'crumb' : this.args['crumb'],
+  		'crumb' : this.args['search_crumb'],
   	};
 
         // see above inre: inheritance...
@@ -157,6 +159,104 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
                               
 	$("#" + status_id).html("Retrieving photos...");
   	$("#" + status_id).show();
+};
+
+info.aaronland.ffbp.Photos.prototype.fetch_contacts = function(offset){
+
+    var _self = this;
+
+    var doThisOnSuccess = function(rsp){
+
+        var count = parseInt(rsp['count']);
+
+        if (! count){
+            $("#slice_noone_" + offset).html("Nothing new...");
+            return;
+        }
+
+        var html = '';
+        var contacts = 0;
+
+        for (var i=0; i < count; i++){
+
+            var contact = rsp['contacts'][i];
+            var nsid = contact['nsid'];
+
+            if (_self['contacts_seen'][nsid]){
+                continue;
+            }
+
+            _self['contacts_seen'][nsid] = rsp['offset'];
+            contacts += 1;
+
+            html += '<div id="photos_' + contact['nsid_hex'] + '" class="photos_hex">';
+
+            html += '<a href="#" onclick="window.ffbp.show_photos(\'' + contact['nsid'] + '\', \'' + rsp['offset'] + '\', \'' + rsp['duration'] + '\');return false;" title="yay! new photos from ' + contact['username'] + '">';
+            html += '<img id="buddy_' + contact['nsid_hex'] + '" src="' + contact['buddyicon'] + '" height="48" width="48" class="buddy_hex" style="border:3px solid #' + contact['nsid_short_hex'] + ';" alt="' + contact['username'] + '" />';
+            html += '</a>';
+
+            html += '<div id="count_thumbs_' + contact['nsid_hex'] + '" class="count_thumbs_hex">';
+            html += '<a href="http://www.flickr.com/photos/' + contact['nsid'] + '" target="' + contact['nsid_hex'] + '">';
+
+            if (parseInt(contact['count']) == 1){
+                html += '<strong>1</strong> photo';
+            }
+
+            else {
+                html += '<strong>' + contact['count'] + '</strong> photos';
+            }
+
+            html += '</a>';
+            html += '</div>';
+            html += '</div>';
+        }
+
+        if (! contacts){
+            $("#slice_noone_" + offset).html("Nothing new...");
+            return;
+        }
+
+        html += '<br clear="all" />';
+
+        html += '<div class="status" id="status_' + rsp['duration'] + '"></div>';
+        html += '<div class="slice_thumbs" id="slice_thumbs_' + rsp['duration'] + '"></div>';
+        html += '<br clear="all" />';
+
+        $("#slice_" + offset).html(html);
+    };
+
+    var doThisIfNot = function(rsp){
+
+        var html = '';
+
+        html += '<span style="font-size:.75em;">';
+        html += 'I give up! The magic future-world we keep dreaming of says: <em>' + rsp['error']['message'] + '</em>';
+        html += '</span>';
+
+        $("#slice_noone_" + offset).html(html);
+        return;
+    };
+
+    var api_args = {
+        'host' : this.args['host'],
+    };
+
+    var search_args = {
+        'offset' : offset,
+        'format' : 'json',
+        'crumb' : this.args['contacts_crumb'],
+    };
+
+    // Note: We are calling the ffbp API rather than the Flickr API 
+    // directly. This may need to be revisited in light of token/sig
+    // stuff. I suppose on possibility would be to have an endpoint
+    // that simply generated a sig when passed a bunch of API args 
+    // and a (very) time-sensitive crumb. That might work for queries
+    // that are implicity scoped by time but I haven't thought it all
+    // through yet... (20091107/asc)
+
+    var api = new info.aaronland.flickrapp.API(api_args)
+    api.api_call('contacts', search_args, doThisOnSuccess, doThisIfNot);
 };
 
 info.aaronland.ffbp.Photos.prototype.show_photos_inline = function(nsid, offset, duration){

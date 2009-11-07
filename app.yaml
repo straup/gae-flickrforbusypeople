@@ -1,5 +1,5 @@
 application: flickrforbusypeople
-version: 6
+version: 8
 runtime: python
 api_version: 1
 
@@ -26,6 +26,10 @@ handlers:
 
 - url: /images
   static_dir: images
+
+- url: /admin/.*
+  script: admin.py
+  login: admin
 
 - url: .*
   script: main.py

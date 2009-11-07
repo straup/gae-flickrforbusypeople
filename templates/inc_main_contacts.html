@@ -12,12 +12,54 @@
 
 <div class="slice_contacts">
 
+  <a name="slice_{{ slice.duration|escape }}"></a>
+
+  <div id="slice_{{ slice.duration|escape }}">
+
 {% ifequal slice.count 0 %}
-	<div class="slice_noone">Nothing new...</div>
+	<div class="slice_noone" id="slice_noone_{{ slice.duration|escape }}">
+
+          {% ifequal slice.defer 1 %}
+
+	    Fetching contacts...
+
+            <script type="text/javascript">
+
+              var offset = 200 * parseInt('{{ slice.duration|escape }}'.substring(0,1));
+              var delay = Math.floor(Math.random() * offset);
+              
+              setTimeout(function(){
+              	window.ffbp.fetch_contacts('{{ slice.duration|escape }}');
+              }, delay);
+
+            </script>
+
+          {% else %}
+
+          {% if slice.error %}
+
+            <span style="font-size:.75em;">{{ slice.error|escape }} &#8212; trying again...</span>
+
+            <script type="text/javascript">
+
+              var offset = 200 * parseInt('{{ slice.duration|escape }}'.substring(0,1));
+              var delay = Math.floor(Math.random() * offset);
+
+              setTimeout(function(){
+              	window.ffbp.fetch_contacts('{{ slice.duration|escape }}');
+              }, delay);
+
+            </script>
+
+          {% else %}
+          Nothing new...
+
+          {% endif %}
+          {% endifequal %}
+
+        </div>
 {% else %}
 {% for c in slice.contacts %}
-
-	<a name="slice_{{ slice.duration|escape }}"></a>
 	
 	<div id="photos_{{ c.nsid_hex|escape }}" class="photos_hex">
 
@@ -39,6 +81,12 @@
 
 {% endfor %}
 
+<script type="text/javascript">
+{% for c in slice.contacts %}
+	window.ffbp.contacts_seen[ '{{ c.nsid|escape }}' ] = '{{ slice.duration|escape }}';
+{% endfor %}
+</script>
+
         <br clear="all" />
 
         <div class="status" id="status_{{ slice.duration|escape }}"></div>
@@ -46,6 +94,7 @@
 
         <br clear="all" />
 {% endifequal %}
+</div>
 </div>
 
 </div>
