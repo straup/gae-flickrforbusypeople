@@ -7,13 +7,13 @@ import md5
 import logging
 
 class Dispatch (ffbp.Request, APIApp) :
-    
+
     def __init__ (self):
         ffbp.Request.__init__(self)
         APIApp.__init__(self)
 
     def post (self) :
-  
+
         if not self.check_logged_in(self.min_perms) :
             self.api_error(403)
             return
@@ -27,7 +27,7 @@ class Dispatch (ffbp.Request, APIApp) :
 
         if format :
             self.format = format
-    
+
         if method == 'search' :
             return self.__search()
 
@@ -37,7 +37,7 @@ class Dispatch (ffbp.Request, APIApp) :
         else :
             self.api_error(404, 'Invalid method')
             return
-        
+
     def ensure_crumb (self, path) :
 
         if not self.validate_crumb(self.user, path, self.request.get('crumb')) :
@@ -49,15 +49,15 @@ class Dispatch (ffbp.Request, APIApp) :
     def __search (self) :
 
         required = ('crumb', 'user_id', 'min_upload_date')
-        
+
         if not self.ensure_args(required) :
-            return 
+            return
 
         if not self.ensure_crumb('method=search') :
             return
 
         method = 'flickr.photos.search'
-        
+
         args = {
             'auth_token' : self.user.token,
             'user_id' : self.request.get('user_id'),
@@ -73,25 +73,31 @@ class Dispatch (ffbp.Request, APIApp) :
         if rsp['stat'] != 'ok' :
             return self.api_error()
 
-        embiggen = 0;
+        self.check_useragent()
 
-        if self.user.settings.embiggen_photos :
-            embiggen = 1;
-            
-        return self.api_ok({'photos' : rsp['photos'], 'embiggen' : embiggen})
+        embiggen = 0
+        mobile = 0
+
+        if self.user.settings.embiggen_photos:
+            embiggen = 1
+
+        if self.browser['mobile']:
+            mobile = 1
+
+        return self.api_ok({'photos' : rsp['photos'], 'embiggen' : embiggen, 'mobile': mobile})
 
     def __contacts (self) :
 
         required = ('crumb', 'offset')
-        
+
         if not self.ensure_args(required) :
-            return 
+            return
 
         if not self.ensure_crumb('method=contacts') :
             return
 
         duration = self.request.get('offset')
-        
+
         if duration == '30m' :
             hours = .5
         elif duration == '2h' :
@@ -99,11 +105,11 @@ class Dispatch (ffbp.Request, APIApp) :
         elif duration == '4h' :
                     hours = 4
         elif duration == '8h' :
-            hours = 8        
+            hours = 8
         else :
             duration = 1
             hours = 1
-        
+
         offset = 60 * 60 * hours
         dt = int(time.time() - offset)
 
@@ -116,11 +122,11 @@ class Dispatch (ffbp.Request, APIApp) :
             }
 
         rsp = self.api_call('flickr.contacts.getListRecentlyUploaded', args)
-        
+
         contacts = []
 
         foo = None
-        
+
         if not rsp or rsp['stat'] != 'ok' :
 
             code = 999
@@ -132,7 +138,7 @@ class Dispatch (ffbp.Request, APIApp) :
 
             self.api_error(code, error)
             return
-        
+
         elif rsp['contacts']['total'] == 0 :
             foo = {'contacts' : contacts, 'error' : None, 'offset' : dt, 'duration' : duration, 'count' : 0 }
 
@@ -152,9 +158,9 @@ class Dispatch (ffbp.Request, APIApp) :
                     'count' : c['photos_uploaded'],
                     'buddyicon' : icon,
                     }
-        
+
                 contacts.append(user)
-        
+
             foo =  {'contacts' : contacts, 'error' : None, 'offset' : dt, 'duration' : duration, 'count' : len(contacts) }
 
         return self.api_ok(foo)

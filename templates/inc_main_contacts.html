@@ -27,7 +27,7 @@
 
               var offset = 200 * parseInt('{{ slice.duration|escape }}'.substring(0,1));
               var delay = Math.floor(Math.random() * offset);
-              
+
               setTimeout(function(){
               	window.ffbp.fetch_contacts('{{ slice.duration|escape }}');
               }, delay);
@@ -38,7 +38,7 @@
 
           {% if slice.error %}
 
-            <span style="font-size:.75em;">{{ slice.error|escape }} &#8212; trying again...</span>
+            <span style="font-size:small;">{{ slice.error|escape }} &#8212; trying again...</span>
 
             <script type="text/javascript">
 
@@ -60,7 +60,7 @@
         </div>
 {% else %}
 {% for c in slice.contacts %}
-	
+
 	<div id="photos_{{ c.nsid_hex|escape }}" class="photos_hex">
 
 		<a href="#" onclick="window.ffbp.show_photos('{{ c.nsid|escape }}', '{{ slice.offset}}', '{{ slice.duration|escape }}');return false;" title="yay! new photos from {{ c.username|escape }}">

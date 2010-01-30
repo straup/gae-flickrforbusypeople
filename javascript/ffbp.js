@@ -52,9 +52,9 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
 	}
 
 	if ($("#" + uid).length){
-		return;                                  
+		return;
 	}
-                                  
+
   	var api_args = {
 		'host' : this.args['host'],
   	};
@@ -92,7 +92,8 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
 		html += '</div>';
 
                 var embiggen = rsp.embiggen;
-                
+		var mobile = rsp.mobile;
+
                 var count = parseInt(rsp.photos.total);
 
                 if ((embiggen) && (count > 20)){
@@ -110,7 +111,13 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
   			var src = 'http://farm' + ph['farm'] + '.static.flickr.com/' + ph['server'] + '/' + ph['id'] + '_' + ph['secret'] + '_s.jpg';
 
                         if (embiggen){
-                            src = 'http://farm' + ph['farm'] + '.static.flickr.com/' + ph['server'] + '/' + ph['id'] + '_' + ph['secret'] + '.jpg';
+                            src = 'http://farm' + ph['farm'] + '.static.flickr.com/' + ph['server'] + '/' + ph['id'] + '_' + ph['secret']
+
+				if (mobile){
+				    src += '_m';
+				}
+
+			    src += '.jpg';
                         }
 
   			var img = '<a href="' + link + '" target="_fl' + ph['id'] + '">';
@@ -156,7 +163,7 @@ info.aaronland.ffbp.Photos.prototype.show_photos = function(nsid, offset, durati
   	});
 
         $("#buddy_" + hex)[0].src = "/images/loading.gif";
-                              
+
 	$("#" + status_id).html("Retrieving photos...");
   	$("#" + status_id).show();
 };
@@ -229,7 +236,7 @@ info.aaronland.ffbp.Photos.prototype.fetch_contacts = function(offset){
 
         var html = '';
 
-        html += '<span style="font-size:.75em;">';
+        html += '<span style="font-size:small;">';
         html += 'I give up! The magic future-world we keep dreaming of says: <em>' + rsp['error']['message'] + '</em>';
         html += '</span>';
 
