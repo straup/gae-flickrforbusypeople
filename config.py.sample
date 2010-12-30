@@ -3,4 +3,5 @@ config = {
     'flickr_apisecret' : 'YER_FLICKR_APISECRET',
     'flickr_minperms' : 'read',
     'javascript_logging' : 0,
+    'ffbp_deferred_loading' : True,
 };
