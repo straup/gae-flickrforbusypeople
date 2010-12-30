@@ -18,20 +18,20 @@ class Main (ffbp.Request) :
         return
 
     search_crumb = self.generate_crumb(self.user, 'method=search')
-    contacts_crumb = self.generate_crumb(self.user, 'method=contacts')    
+    contacts_crumb = self.generate_crumb(self.user, 'method=contacts')
     self.assign('search_crumb', search_crumb)
     self.assign('contacts_crumb', contacts_crumb)
-    
+
     contacts_30m = self.get_contacts('30m', [])
     contacts_2h = self.get_contacts('2h', contacts_30m['filter'])
     contacts_4h = self.get_contacts('4h', contacts_2h['filter'])
-    contacts_8h = self.get_contacts('8h', contacts_4h['filter'])    
-    
+    contacts_8h = self.get_contacts('8h', contacts_4h['filter'])
+
     slices = []
     slices.append(contacts_30m)
     slices.append(contacts_2h)
     slices.append(contacts_4h)
-    slices.append(contacts_8h)    
+    slices.append(contacts_8h)
 
     self.assign('slices', slices)
     self.display("main_logged_in.html")
@@ -46,15 +46,15 @@ class Main (ffbp.Request) :
     elif duration == '4h' :
         hours = 4
     elif duration == '8h' :
-        hours = 8        
+        hours = 8
     else :
         duration = 1
         hours = 1
-        
+
     offset = 60 * 60 * hours
     dt = int(time.time() - offset)
 
-    if config['ffbp_deferred_loading'] : 
+    if config['ffbp_deferred_loading'] :
       return {'contacts' : [], 'filter' : filter, 'error' : None, 'defer' : 1, 'offset' : dt, 'duration' : duration, 'count' : 0 }
 
     contacts_filter = self.user.settings.search_in_contacts_filter
@@ -62,35 +62,35 @@ class Main (ffbp.Request) :
     # TO DO: Backet times, so 30 minutes becomes 0-30 minutes
     # and 2hr becomes 30-120 minutes and so on. This requires
     # changes in the Flickr API itself.
-    
+
     args = {
         'auth_token' : self.user.token,
         'date_lastupload' : dt,
         'filter' : contacts_filter,
     }
-      
+
     rsp = self.api_call('flickr.contacts.getListRecentlyUploaded', args)
-    
+
     contacts = []
     new_filter = filter
-    
+
     if not rsp or rsp['stat'] != 'ok' :
 
         error = 'Hrm. Something went wrong calling the Flickr API...'
 
         if rsp :
             error = rsp['message']
-            
+
         return {'contacts' : contacts, 'filter' : new_filter, 'error' : error, 'offset' : dt, 'duration' : duration, 'count' : 0 }
-    
+
     if rsp['contacts']['total'] == 0 :
         return {'contacts' : contacts, 'filter' : new_filter, 'error' : None, 'offset' : dt, 'duration' : duration, 'count' : 0 }
-    
+
     for c in rsp['contacts']['contact'] :
 
         if c['nsid'] in filter :
             continue
-        
+
         icon = self.flickr_get_buddyicon(c['nsid'])
 
         hex = md5.new(c['nsid']).hexdigest()
@@ -104,10 +104,10 @@ class Main (ffbp.Request) :
             'count' : c['photos_uploaded'],
             'buddyicon' : icon,
         }
-        
+
         contacts.append(user)
         new_filter.append(c['nsid'])
-        
+
     return {'contacts' : contacts, 'filter' : new_filter, 'error' : None, 'offset' : dt, 'duration' : duration, 'count' : len(contacts) }
 
 class Settings (ffbp.Request) :

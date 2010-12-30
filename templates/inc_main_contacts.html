@@ -25,12 +25,9 @@
 
             <script type="text/javascript">
 
-              var offset = 200 * parseInt('{{ slice.duration|escape }}'.substring(0,1));
-              var delay = Math.floor(Math.random() * offset);
-
-              setTimeout(function(){
+	      $(document).ready(function(){
               	window.ffbp.fetch_contacts('{{ slice.duration|escape }}');
-              }, delay);
+	      });
 
             </script>
 
@@ -42,19 +39,16 @@
 
             <script type="text/javascript">
 
-              var offset = 200 * parseInt('{{ slice.duration|escape }}'.substring(0,1));
-              var delay = Math.floor(Math.random() * offset);
-
-              setTimeout(function(){
+	      $(document).ready(function(){
               	window.ffbp.fetch_contacts('{{ slice.duration|escape }}');
-              }, delay);
+	      });
 
             </script>
 
           {% else %}
           Nothing new...
-
           {% endif %}
+
           {% endifequal %}
 
         </div>

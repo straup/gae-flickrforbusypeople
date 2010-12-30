@@ -254,10 +254,10 @@ info.aaronland.ffbp.Photos.prototype.fetch_contacts = function(offset){
         'crumb' : this.args['contacts_crumb'],
     };
 
-    // Note: We are calling the ffbp API rather than the Flickr API 
+    // Note: We are calling the ffbp API rather than the Flickr API
     // directly. This may need to be revisited in light of token/sig
     // stuff. I suppose on possibility would be to have an endpoint
-    // that simply generated a sig when passed a bunch of API args 
+    // that simply generated a sig when passed a bunch of API args
     // and a (very) time-sensitive crumb. That might work for queries
     // that are implicity scoped by time but I haven't thought it all
     // through yet... (20091107/asc)
