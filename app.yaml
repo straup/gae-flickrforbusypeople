@@ -24,6 +24,14 @@ handlers:
 - url: /javascript
   static_dir: javascript
 
+- url: /favicon.ico
+  static_files: images/favicon.ico
+  upload: images/favicon.ico
+
+- url: /apple-touch-icon.png
+  static_files: images/apple-touch-icon.png
+  upload: images/apple-touch-icon.png
+
 - url: /images
   static_dir: images
 
